@@ -14,10 +14,14 @@ defmodule PhxCrawlerWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", PhxCrawlerWeb do
+  scope "/" do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/crawler", PhxCrawlerWeb.CategoryController, :crawler
+    post "/crawler", PhxCrawlerWeb.CategoryController, :crawler_action
+    resources "/category", PhxCrawlerWeb.CategoryController
+    resources "/story", PhxCrawlerWeb.StoryController
+    resources "/chapter", PhxCrawlerWeb.ChapterController
   end
 
   # Other scopes may use custom stacks.
@@ -54,13 +58,4 @@ defmodule PhxCrawlerWeb.Router do
     end
   end
 
-  scope "/", PhxCrawlerWeb do
-    pipe_through :browser
-
-    # get "/", PageController, :index
-    # get "/stories/:category", PhxCrawlerWeb.CrawlerController, :stories
-    # get "/stories", PhxCrawlerWeb.CrawlerController, :crawler
-    # post "/stories", PhxCrawlerWeb.CrawlerController, :stories
-    get "/crawler/:page", PhxCrawlerWeb.CrawlerController, :crawler
-  end
 end

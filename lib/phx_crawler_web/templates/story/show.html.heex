@@ -1,0 +1,50 @@
+<div class="story">
+<span><%= link "Back", to: Routes.category_path(@conn, :index) %></span>
+<div class="detail">
+  <%= content_tag :img, src: @story.cover_image_url , alt: @story.name, class: "cover_image_story" do end%>
+  
+  <div class="detail_info">
+  <h1><%= @story.name %></h1>
+  <p><%= @story.description %></p>
+  <ul>
+    <li>
+      <strong>Status:</strong>
+      <%= @story.status %>
+    </li>
+    <li>
+      <strong>Author:</strong>
+      <%= @story.author %>
+    </li>
+    <li>
+      <strong>Last Update:</strong>
+      <%= @story.last_update %>
+    </li>
+    <li>
+      <strong>Total chapter:</strong>
+      <%= @story.total_chapter %>
+    </li> 
+  </ul>
+  </div>
+  <div class="chapter-list">
+    <%= if @chapter do %>
+      <%= for c <- @chapter do %>
+          <div class="chapter-item"><%= link c.name, to: Routes.chapter_path(@conn, :show, c.id) %></div>
+      <% end %>
+    <% end %>
+  </div>
+  <%= if @page_pagination.total_pages > 1 do %>
+    <div class="pagination">
+      <%= if @page_pagination.page_number > 1 do %>
+        <%= link "<", to: Routes.story_path(@conn, :show, @story_id, page: 1), class: "pagination-link" %>
+      <% end %>
+      <%= for page_item <- @page_pagination.list_page  do  %>
+        <%= link page_item.name, class: page_item.class, to: Routes.story_path(@conn, :show, @story_id, page: page_item.name) %>
+      <% end %>
+      <%= if @page_pagination.page_number < @page_pagination.total_pages do %>
+        <%= link ">", to: Routes.story_path(@conn, :show, @story_id, page: @page_pagination.total_pages), class: "pagination-link" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+</div>
+

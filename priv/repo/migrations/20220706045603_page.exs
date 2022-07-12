@@ -3,9 +3,10 @@ defmodule PhxCrawler.Repo.Migrations.Page do
 
   def change do
     create table(:page) do
-      add(:name, :string, unique: true)
-      add(:url_img, :string)
+      add(:page_url, :text)
       add :chapter_id, references(:chapter)
     end
+
+    create unique_index(:page, [:page_url,:chapter_id])
   end
 end

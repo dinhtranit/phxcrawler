@@ -1,0 +1,17 @@
+<span><%= link "Back", to: Routes.story_path(@conn, :show, @chapter.story_id) %></span>
+<h1><%= @chapter.name %></h1>
+<ul>
+  <li>
+    <strong>Total page:</strong>
+    <%= @chapter.total_page %>
+  </li>
+</ul>
+
+
+<div class="content-body">
+  <%= for p <- @pages do %>
+    <div class="page_image">
+        <%= content_tag :img, src: p.page_url , alt: @chapter.name do%><% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,43 @@
+<h1>Listing Story</h1>
+<%= form_for @conn, Routes.story_path(@conn, :index), [class: "pull-right", method: "get"],  fn f -> %>
+  <%= search_input f, :query %>
+  <%= submit "Search" %>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for story <- @story do %>
+        <tr>
+          <td>
+            <span><%= link story.name, to: Routes.story_path(@conn, :show, story) %></span>
+          </td>
+          <td>
+          </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= if @page_pagination.total_pages > 1 do %>
+  <div class="pagination">
+    <%= if @page_pagination.page_number > 1 do %>
+      <%= link "<",
+        to: Routes.story_path(@conn, :index, page: 1),
+        class: "pagination-link" %>
+    <% end %>
+    <%= for page_item <- @page_pagination.list_page  do  %>
+      <%= link page_item.name, class: page_item.class,   to: Routes.story_path(@conn, :index, page: page_item.name) %>
+    <% end %>
+
+    <%= if @page_pagination.page_number < @page_pagination.total_pages do %>
+      <%= link ">",
+        to: Routes.story_path(@conn, :index, page: @page_pagination.total_pages),
+        class: "pagination-link" %>
+    <% end %>
+  </div>
+<% end %>

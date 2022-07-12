@@ -1,0 +1,11 @@
+<h1>Crawler</h1>
+<%= form_for :foo, Routes.category_path(@conn, :crawler_action), fn f -> %>
+ <%= label f, :category_url %>
+  <%= text_input f, :category_url %>
+  <%= error_tag f, :category_url %>
+  <div>
+    <%= submit "Run" %>
+  </div>
+<% end %>
+
+<span><%= link "Back", to: Routes.category_path(@conn, :index) %></span>

@@ -1,0 +1,30 @@
+<h1>Listing Chapter</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Total page</th>
+      <th>Chapter url</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for chapter <- @chapter do %>
+    <tr>
+      <td><%= chapter.name %></td>
+      <td><%= chapter.total_page %></td>
+      <td><%= chapter.chapter_url %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.chapter_path(@conn, :show, chapter) %></span>
+        <span><%= link "Edit", to: Routes.chapter_path(@conn, :edit, chapter) %></span>
+        <span><%= link "Delete", to: Routes.chapter_path(@conn, :delete, chapter), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Chapter", to: Routes.chapter_path(@conn, :new) %></span>
